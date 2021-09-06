@@ -12,7 +12,7 @@ import CoreGraphics
 	context -> image <- Data <- URL
 */
 
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || targetEnvironment(macCatalyst)
 	import UIKit
 #elseif os(macOS)
 	import Cocoa

@@ -17,6 +17,7 @@ extension CGContext {
 		saveGState()
 		translateBy(x: coords.x, y: coords.y)
 		textPosition = .zero
+		//this might be wrong, maybe the context doesn't always need to be flipped?
 		scaleBy(x: 1.0, y: -1.0)
 		CTLineDraw(line, self)
 		restoreGState()

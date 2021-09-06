@@ -7,9 +7,7 @@
 //
 
 import Foundation
-#if os(macOS) || os(iOS) || os(tvOS)
 import CoreGraphics
-#endif
 
 
 public func +(lhs:CGPoint, rhs:CGPoint)->CGPoint {
