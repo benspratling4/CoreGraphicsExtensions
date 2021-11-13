@@ -163,3 +163,94 @@ extension CGRect {
 	}
 }
 
+
+extension CGRect {
+	///returns 0.0 if the point is on or in self, otherwise the shortest distance to the rect
+	public func distance(to point:CGPoint)->CGFloat {
+		if contains(point) {
+			return 0.0
+		}
+		if point.x < origin.x {
+			let dx = origin.x - point.x
+			if point.y < origin.y {
+				let dy = point.y - origin.y
+				
+				return sqrt( dx * dx + dy * dy )
+			}
+			else if point.y > maxY {
+				let dy = point.y - maxY
+				return sqrt( dx * dx + dy * dy )
+			}
+			else {
+				return dx
+			}
+		}
+		else if point.x > maxX {
+			let dx = point.x - maxX
+			if point.y < origin.y {
+				let dy = origin.y - point.y
+				return sqrt( dx * dx + dy * dy )
+			}
+			else if point.y > maxY {
+				let dy = point.y - maxY
+				return sqrt( dx * dx + dy * dy )
+			}
+			else {
+				return dx
+			}
+		}
+		else {
+			if point.y < origin.y {
+				return origin.y - point.y
+			}
+			else if point.y > maxY {
+				return point.y - maxY
+			}
+			else {
+				return 0.0
+			}
+		}
+	}
+	
+	///returns a point on or in the rect closest to the given point
+	public func pointClosest(to point:CGPoint)->CGPoint {
+		if contains(point) {
+			return point
+		}
+		if point.x < origin.x {
+			let closestX:CGFloat = origin.x
+			if point.y < origin.y {
+				return CGPoint(x: closestX, y: origin.y)
+			}
+			else if point.y > maxY {
+				return CGPoint(x: closestX, y: maxY)
+			}
+			else {
+				return CGPoint(x: closestX, y: point.y)
+			}
+		}
+		else if point.x > maxX {
+			let closestX:CGFloat = maxX
+			if point.y < origin.y {
+				return CGPoint(x: closestX, y: origin.y)
+			}
+			else if point.y > maxY {
+				return CGPoint(x: closestX, y: maxY)
+			}
+			else {
+				return CGPoint(x: closestX, y: point.y)
+			}
+		}
+		else {
+			if point.y < origin.y {
+				return CGPoint(x: point.x, y: origin.y)
+			}
+			else if point.y > maxY {
+				return CGPoint(x: point.x, y: maxY)
+			}
+			else {
+				return point
+			}
+		}
+	}
+}
